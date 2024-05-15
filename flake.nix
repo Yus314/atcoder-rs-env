@@ -18,9 +18,6 @@
         overlays = [
           rust-overlay.overlays.default
           # Add cargo-compete
-          (final: prev: {
-            cargo-compete = prev.callPackage ./cargo-compete.nix {};
-          })
         ];
       };
 
@@ -29,9 +26,13 @@
       devShells.default = pkgs.mkShell {
         nativeBuildInputs = [
           rustToolchain
-          pkgs.cargo-compete
+          pkgs.openssl
+          pkgs.openssl.dev
+          pkgs.pkg-config
+          pkgs.rustup
           # add any other packages you want to include here
         ];
+        LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [pkgs.openssl];
       };
     });
 }
