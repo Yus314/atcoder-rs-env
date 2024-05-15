@@ -30,9 +30,13 @@
           pkgs.openssl.dev
           pkgs.pkg-config
           pkgs.rustup
+          pkgs.libgit2
           # add any other packages you want to include here
         ];
+        buildInputs = [pkgs.libiconv pkgs.darwin.apple_sdk.frameworks.Security];
         LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [pkgs.openssl];
+        shellHook = ''
+        '';
       };
     });
 }
